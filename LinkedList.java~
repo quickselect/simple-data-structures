@@ -115,6 +115,7 @@ class DoubleLinkedList {
       else head = new_node;
     }
 
+    // T(N) S(1)
     void append(Object new_data){
       Node new_node = new Node(new_data);
       Node last = head;
@@ -131,6 +132,72 @@ class DoubleLinkedList {
       new_node.prev = last;
     }
 }
+
+// NOT DONE
+class CircularSinglyLinkedList{
+ static Node head = null;
+  class Node {
+    Node next;
+    Object data;
+
+    Node(Object data) {
+      this.data = data;
+    }
+  }
+  
+  Node push(Object data) {
+    Node ptr1 = new Node();
+    ptr1.data = data;
+    ptr1.next = head;
+
+    if(head != null) {
+      Node temp = head;
+      while(temp.next!=head) temp = temp.next;
+      temp.next = ptr1;
+    } else ptr1.next = ptr1;
+
+    head = ptr1;
+    return head;
+  }
+
+  Node deleteNode(Object key) {
+    if(head == null) return null;
+    int flag = 0;
+    // find the node
+    Node curr = head, prev= new Node();
+    while(curr.data!=key){
+      if(curr.next == head) {
+        // not found
+        flag = 1;
+        break;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+
+    // case : elem not present
+    if(flag == 1) return head;
+
+    if(curr == head && curr.next == head) {
+      head = null;
+      return head;
+    }
+
+    if(curr==head){
+      prev = head;
+      while(prev.next != head) prev = prev.next;
+      head=curr.next;
+      prev.next;
+    }
+
+    else if(curr.next = head) prev.next = head;
+    else prev.next = curr.next;
+    return head;
+  }
+
+}
+
+
 
 
 
