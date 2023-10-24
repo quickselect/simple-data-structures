@@ -135,7 +135,11 @@ class DoublyLinkedList {
 
 // NOT DONE
 class CircularSinglyLinkedList{
- static Node head = null;
+  int size = 0;
+  // pointer to first node.
+  Node first; 
+  // pointer to last node.
+  Node last;
   class Node {
     Node next;
     Object data;
@@ -144,57 +148,68 @@ class CircularSinglyLinkedList{
       this.data = data;
     }
   }
-  
-  Node push(Object data) {
-    Node ptr1 = new Node();
-    ptr1.data = data;
-    ptr1.next = head;
 
-    if(head != null) {
-      Node temp = head;
-      while(temp.next!=head) temp = temp.next;
-      temp.next = ptr1;
-    } else ptr1.next = ptr1;
-
-    head = ptr1;
-    return head;
+  void linkFirst(Object data) {
+    Node new_node = new Node(data);
+    if(first == null) {
+      first = new_node;
+      last = new_node;
+      new_node.next = first;
+    } else {
+      last.next = new_node;
+      last = new_node;
+      last.next = first;
+    }
+    ++size;
   }
 
-  Node deleteNode(Object key) {
-    if(head == null) return null;
-    int flag = 0;
-    // find the node
-    Node curr = head, prev= new Node();
-    while(curr.data!=key){
-      if(curr.next == head) {
-        // not found
-        flag = 1;
+  // todo
+  /*void linkLast(Object data){
+    Node new_node = new Node(data);
+    if(last == null){
+      first = new_node;
+      last = new_node;
+      new_node.next = first;
+    } else { */
+
+
+
+  void delete(Object data){
+    Node curr = first;
+    if(first == null) return;
+
+    do {
+      Node next_node = curr.next;
+      if(next_node.data.equals(data)) {
+        if(last==first) { // the list has only one single elem
+          first = null;
+          last = null; 
+        } else {
+          curr.next = next_node.next;
+          if(first == next_node) first = first.next;
+          if(last == next_node) last = curr;
+        }
         break;
       }
-      prev = curr;
-      curr = curr.next;
-    }
-
-    // case : elem not present
-    if(flag == 1) return head;
-
-    if(curr == head && curr.next == head) {
-      head = null;
-      return head;
-    }
-
-    if(curr==head){
-      prev = head;
-      while(prev.next != head) prev = prev.next;
-      head=curr.next;
-      prev.next;
-    }
-
-    else if(curr.next = head) prev.next = head;
-    else prev.next = curr.next;
-    return head;
+      curr = next_node;
+    } while(curr!=first);
   }
 
+  // returns the first elem in the list.
+  public Object getFirst(){
+    if(this.first == null) throw new NoSuchElementException();
+    return this.first.item;
+  }
+  // returns the last elem in the list.
+  public Object getLast(){
+    if(this.last == null) throw new NoSuchElementException();
+    return this.last.item;
+  }
+
+
+
+
+  
 }
 
 
