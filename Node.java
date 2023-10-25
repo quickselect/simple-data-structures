@@ -1,8 +1,8 @@
-public class Node {
-  Object data;
-  Node next;
+public class Node<E> {
+  E data;
+  Node<E> next;
 
-  public Node(Object data) {
+  public Node(E data) {
     this.data = data;
   }
 }
