@@ -1,6 +1,6 @@
 package Node;
 public class Node<E> {
-  E data;
+  public E data;
   public Node<E> next = null;
 
   public Node (E data) {

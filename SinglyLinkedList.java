@@ -5,6 +5,9 @@ class SinglyLinkedList<E> {
 
   void deleteList() { this.head = null; }
 
+  // empty list
+  public SinglyLinkedList(){}
+
   // T(1) S(1)
   void push(E new_data){
     Node<E> new_node = new Node(new_data);
@@ -31,7 +34,7 @@ class SinglyLinkedList<E> {
   }
 
   // T(N) S(1)
-  Node reverseIteratively(Node<E> node){
+  Node<E> reverseIteratively(Node<E> node){
     Node<E> prev = null;
     Node<E> current = node;
     Node<E> next = null;
@@ -46,7 +49,7 @@ class SinglyLinkedList<E> {
   }
 
   // T(N) S(N), fn call stack space
-  Node reverseRecursively(Node<E> head){
+  Node<E> reverseRecursively(Node<E> head){
     if(head == null || head.next == null) return head;
     Node<E> rest = reverseRecursively(head.next);
     head.next.next=head;
@@ -54,7 +57,37 @@ class SinglyLinkedList<E> {
     return rest;
   }
 
+  void printAll(){
+    Node<E> temp = head;
+    if(temp==null){
+      System.out.println("this list is empty");
+      return;
+    }
+    while(temp!=null){
+      System.out.println(temp.data);
+      temp = temp.next;
+    }
+    return;
+  }
+
   // driver
   public static void main(String[] args) {
+    // push, append, reverse
+    SinglyLinkedList<Integer> SLL = new SinglyLinkedList<>();
+    // push test
+    SLL.push(1);
+    SLL.push(2);
+    SLL.push(3);
+    SLL.push(4);
+    SLL.printAll();
+
+    // append test
+    SLL.append(2);
+    SLL.append(3);
+    SLL.append(4);
+    SLL.printAll();
+
+    SLL.deleteList();
+    SLL.printAll();
   }
 }
