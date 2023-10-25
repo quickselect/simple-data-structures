@@ -34,9 +34,9 @@ class SinglyLinkedList<E> {
   }
 
   // T(N) S(1)
-  Node<E> reverseIteratively(Node<E> node){
+  Node<E> reverseIteratively(){
     Node<E> prev = null;
-    Node<E> current = node;
+    Node<E> current = head;
     Node<E> next = null;
     while(current!=null){
       next = current.next;
@@ -44,10 +44,11 @@ class SinglyLinkedList<E> {
       prev = current;
       current = next;
     }
-    node = prev;
-    return node;
+    head = prev;
+    return head;
   }
 
+  /*
   // T(N) S(N), fn call stack space
   Node<E> reverseRecursively(Node<E> head){
     if(head == null || head.next == null) return head;
@@ -55,7 +56,7 @@ class SinglyLinkedList<E> {
     head.next.next=head;
     head.next=null;
     return rest;
-  }
+  } */
 
   void printAll(){
     Node<E> temp = head;
@@ -88,6 +89,16 @@ class SinglyLinkedList<E> {
     SLL.printAll();
 
     SLL.deleteList();
+    SLL.printAll();
+
+    SLL.append(1);
+    SLL.append(2);
+    SLL.append(3);
+    SLL.append(4);
+    System.out.println("before:");
+    SLL.printAll();
+    SLL.reverseIteratively();
+    System.out.println("after:");
     SLL.printAll();
   }
 }
