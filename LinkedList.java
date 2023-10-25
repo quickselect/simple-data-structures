@@ -1,7 +1,4 @@
 
-
-
-
 // NOT DONE
 class CircularSinglyLinkedList{
   int size = 0;
@@ -9,14 +6,6 @@ class CircularSinglyLinkedList{
   Node first; 
   // pointer to last node.
   Node last;
-  class Node {
-    Node next;
-    Object data;
-
-    Node(Object data) {
-      this.data = data;
-    }
-  }
 
   void linkFirst(Object data) {
     Node new_node = new Node(data);
