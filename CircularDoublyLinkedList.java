@@ -65,46 +65,65 @@ class CircularDoublyLinkedList<E>{
     --size;
     return;
   }
-
   void InsertAfter(Node<E> prev_node, E new_data) {
     if(prev_node == null) return;
 
     Node<E> new_node = new Node(new_data);
     new_node.next = prev_node.next;
+    prev_node.next.prev = new_node;
     prev_node.next = new_node;
     new_node.prev = prev_node;
-
-    if(new_node.next != null) new_node.next.prev = new_node;
-
-    // check if we've inserted after the last node, so that we can update the last Node.
-    if(new_node.prev == last) last = new_node;
+    ++size;
   }
 
+  // not done.
   void InsertBefore(Node<E> next_node, E new_data){
     if(next_node == null) return;
 
     Node<E> new_node = new Node(new_data);
     new_node.prev = next_node.prev;
+    next_node.prev.next = new_node;
     next_node.prev = new_node;
     new_node.next = next_node;
-    if(new_node.prev != null) new_node.prev.next = new_node;
-    else first = new_node;
+
+    if(next_node == first) first = new_node;
+    ++size;
   }
 
   public String toString(){
     StringBuilder str = new StringBuilder();
     str.append("[ ");
     Node<E> temp = first;
-    if(temp==null){
+    if(first==null){
       str.append("]");
       return str.toString();
     }
-    do {
+    do{
+//      System.out.println(temp.data);
       str.append(temp.data.toString() + " -> ");
       temp = temp.next;
-    } while(temp!=first);
-    str.append("NULL ]");
+    }while(temp!=first);
+
+    str.append("HEAD ]");
     return str.toString();
+  }
+
+  public void test(){
+    Node<E> temp = first;
+    int i = 1;
+    do {
+      System.out.print(i);
+      System.out.print(" ");
+      System.out.print(temp.data);
+      System.out.print(" ");
+      System.out.print(temp.next.data);
+      System.out.print(" ");
+      System.out.print(temp.prev.data);
+      System.out.print(" ");
+      System.out.println();
+      temp = temp.next;
+      ++i;
+    } while(temp!=first);
   }
 
   public static void main(String[] args) {
@@ -116,6 +135,7 @@ class CircularDoublyLinkedList<E>{
     System.out.println(cdll.toString());
     cdll.remove(cdll.first.next.next);
     System.out.println(cdll.toString());
+    cdll.test();
 //    cdll.reverseIteratively()
 //    System.out.printl(cdll.toString());
   }
