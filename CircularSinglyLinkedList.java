@@ -23,26 +23,50 @@ class CircularSinglyLinkedList<E>{
     ++size;
   }
 
-  void delete(E data){
+  void delete(E data) {
     Node<E> curr = first;
-    if(first == null) return;
+    if (first == null) return;
 
     do {
       Node<E> next_node = curr.next;
-      if(next_node.data.equals(data)) {
-        if(last==first) { // the list has only one single elem
+      if (next_node.data.equals(data)) {
+        if (last == first) { // the list has only one single elem
           first = null;
           last = null;
         } else {
           curr.next = next_node.next;
-          if(first == next_node) first = first.next;
-          if(last == next_node) last = curr;
+          if (first == next_node) first = first.next;
+          if (last == next_node) last = curr;
         }
         --size;
         break;
       }
       curr = next_node;
-    } while(curr!=first);
+    } while (curr != first);
+  }
+
+  public Node<E> reverse(){
+    if(first==null) return null;
+    Node<E> prev = last;
+    Node<E> current = first;
+    Node<E> next = null;
+    do{
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    } while(current!=last);
+
+    // last node
+    last = current;
+    next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+
+    first.next=prev;
+    first = prev;
+    return first;
   }
 
   // returns the first elem in the list.
@@ -81,6 +105,8 @@ class CircularSinglyLinkedList<E>{
     csll.linkFirst(3);
     csll.linkFirst(4);
     csll.linkFirst(5);
+    System.out.println(csll.toString());
+    csll.reverse();
     System.out.println(csll.toString());
   }
 }
