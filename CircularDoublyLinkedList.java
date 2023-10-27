@@ -76,18 +76,20 @@ class CircularDoublyLinkedList<E>{
     ++size;
   }
 
-  // not done.
-  void InsertBefore(Node<E> next_node, E new_data){
-    if(next_node == null) return;
+  Node<E> insertEnd(Node<E> new_node){
+    if(first == null) {
+      first.next = first.prev = new_node;
+      first = new_node;
+      return first;
+    }
 
-    Node<E> new_node = new Node(new_data);
-    new_node.prev = next_node.prev;
-    next_node.prev.next = new_node;
-    next_node.prev = new_node;
-    new_node.next = next_node;
+    Node<E> last = first.prev;
 
-    if(next_node == first) first = new_node;
-    ++size;
+    new_node.next = first;
+    first.prev = new_node;
+    new_node.prev = last;
+    last.next = new_node;
+    return new_node;
   }
 
   public String toString(){
@@ -126,6 +128,27 @@ class CircularDoublyLinkedList<E>{
     } while(temp!=first);
   }
 
+  // T(N) S(1)
+  public void reverse() {
+    Node<E> left = first, right= first;
+
+    // set right to the last item of the list
+    while(right.next!=first) right=right.next;
+
+    // two pointers method -- opposite sides
+    do {
+      // swap datas
+      E temp = left.data;
+      left.data = right.data;
+      right.data = temp;
+
+      left = left.next;
+      right = right.prev;
+    } while(left!=right && left.prev != right);
+
+    return;
+  }
+
   public static void main(String[] args) {
     CircularDoublyLinkedList<Integer> cdll = new CircularDoublyLinkedList<>();
     cdll.push(1);
@@ -135,7 +158,9 @@ class CircularDoublyLinkedList<E>{
     System.out.println(cdll.toString());
     cdll.remove(cdll.first.next.next);
     System.out.println(cdll.toString());
-    cdll.test();
+    cdll.reverse();
+    System.out.println(cdll.toString());
+//    cdll.test();
 //    cdll.reverseIteratively()
 //    System.out.printl(cdll.toString());
   }
