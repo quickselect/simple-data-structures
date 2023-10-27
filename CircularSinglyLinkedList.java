@@ -3,7 +3,6 @@ import java.util.NoSuchElementException;
 
 // NOT DONE
 class CircularSinglyLinkedList<E>{
-  int size = 0;
   // pointer to first node.
   Node<E> first;
   // pointer to last node.
@@ -20,7 +19,6 @@ class CircularSinglyLinkedList<E>{
       last = new_node;
       last.next = first;
     }
-    ++size;
   }
 
   void delete(E data) {
@@ -38,7 +36,6 @@ class CircularSinglyLinkedList<E>{
           if (first == next_node) first = first.next;
           if (last == next_node) last = curr;
         }
-        --size;
         break;
       }
       curr = next_node;
