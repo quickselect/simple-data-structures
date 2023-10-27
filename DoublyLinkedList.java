@@ -77,7 +77,7 @@ class DoublyLinkedList<E> {
     }
     while(temp!=null){
 //      System.out.println(temp.data);
-      str.append(temp.data.toString() + " -> ");
+      str.append(temp.data.toString() + " <-> ");
       temp = temp.next;
     }
     str.append("NULL ]");

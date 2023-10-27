@@ -102,7 +102,7 @@ class CircularDoublyLinkedList<E>{
     }
     do{
 //      System.out.println(temp.data);
-      str.append(temp.data.toString() + " -> ");
+      str.append(temp.data.toString() + " <-> ");
       temp = temp.next;
     }while(temp!=first);
 
@@ -136,6 +136,7 @@ class CircularDoublyLinkedList<E>{
     while(right.next!=first) right=right.next;
 
     // two pointers method -- opposite sides
+    // reverses the list by swapping data
     do {
       // swap datas
       E temp = left.data;
