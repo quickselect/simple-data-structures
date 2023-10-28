@@ -1,6 +1,5 @@
 import Node.Node;
 import java.util.NoSuchElementException;
-import java.lang.IndexOutOfBoundsException;
 
 class DoublyLinkedList<E> {
   Node<E> head;
@@ -27,7 +26,7 @@ class DoublyLinkedList<E> {
   // T(1) S(1)
   Node<E> InsertAfter(Node<E> prev_node, E new_data){
     if(prev_node == null) {
-	    throw new IndexOutOfBoundsException(); // will change later
+	    throw new NodeNotFoundException();
     }
 
     Node<E> new_node = new Node(new_data);
@@ -43,7 +42,7 @@ class DoublyLinkedList<E> {
   // T(1) S(1)
   Node<E> InsertBefore(Node<E> next_node, E new_data){
     if(next_node == null) {
-	    throw new IndexOutOfBoundsException(); // will change later
+	    throw new NodeNotFoundException();
     }
 
     Node<E> new_node = new Node(new_data);
@@ -130,4 +129,10 @@ class DoublyLinkedList<E> {
     System.out.println(dll.toString());
   }
 
+}
+
+public class NodeNotFoundException extends RuntimeException {
+  public NodeNotFoundException(String message) {
+    super(mesage);
+  }
 }
