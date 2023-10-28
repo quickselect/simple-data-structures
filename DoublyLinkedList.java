@@ -1,4 +1,6 @@
 import Node.Node;
+import java.util.NoSuchElementException;
+import java.lang.IndexOutOfBoundsException;
 
 class DoublyLinkedList<E> {
   Node<E> head;
@@ -23,9 +25,9 @@ class DoublyLinkedList<E> {
   }
 
   // T(1) S(1)
-  void InsertAfter(Node<E> prev_node, E new_data){
+  Node<E> InsertAfter(Node<E> prev_node, E new_data){
     if(prev_node == null) {
-      return;
+	    throw new IndexOutOfBoundsException(); // will change later
     }
 
     Node<E> new_node = new Node(new_data);
@@ -34,12 +36,14 @@ class DoublyLinkedList<E> {
     new_node.prev = prev_node;
 
     if(new_node.next != null) new_node.next.prev = new_node;
+
+    return new_node;
   }
 
   // T(1) S(1)
-  void InsertBefore(Node<E> next_node, E new_data){
+  Node<E> InsertBefore(Node<E> next_node, E new_data){
     if(next_node == null) {
-      return;
+	    throw new IndexOutOfBoundsException(); // will change later
     }
 
     Node<E> new_node = new Node(new_data);
@@ -48,6 +52,20 @@ class DoublyLinkedList<E> {
     new_node.next = next_node;
     if(new_node.prev != null) new_node.prev.next = new_node;
     else head = new_node;
+
+    return new_node;
+  }
+
+  void remove(Node<E> e){
+    if(head == null) throw new NoSuchElementException();
+
+    if(head == e) head = e.next;
+
+    if(e.next != null) e.next.prev=e.prev;
+
+    if(e.prev!=null) e.prev.next = e.next;
+
+    return;
   }
 
   // T(N) S(1)
