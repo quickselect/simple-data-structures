@@ -1,4 +1,4 @@
-public interface Queue<E> {
+public interface QueueInterface<E> {
   // pointer to first element.
   E front();
 
