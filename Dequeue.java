@@ -1,47 +1,65 @@
 import Node.Node;
 
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
+
 public class Dequeue<E> implements DequeueInterface<E> {
-  int size = 0;
-  DoublyLinkedList<E> container = null;
-  Node<E> front = null;
-  Node<E> back = null;
+  int size = null;
+  CircularDoublyLinkedList<E> container = null;
 
-  public Dequeue() {
-    this.container = new DoublyLinkedList<>();
+  Dequeue<E>(){
+    this.size = 0;
+    this.container = new CircularDoublyLinkedList<>();
   }
 
-  // Time complexity is O(|count-size|)
-  // Space complexity is O(1)
-  public void assign(int count, E value) {
-    int diff = 0;
-    if(size < count) {
-      diff = count-this.size;
-
-      int remaining_nodes = diff;
-      while(remaining_nodes != 0){
-        this.push_back(value);
-        --remaining_nodes;
-      }
-    } else {
-      diff = this.size-count;
-
-      int nodes_to_remove = diff;
-      while(nodes_to_remove != 0) {
-        this.pop_back();
-        --nodes_to_remove;
-      }
-    }
-
-    // overwriting data/s
-    int nodes_to_change = this.size-diff;
-    Node<E> curr = front;
-    while(nodes_to_change != 0){
-      curr.data = value;
-      curr = curr.next;
-    }
-
-    return;
+  public Node<E> front() {
+    if(size == 0) throw new NoSuchElementException();
+    return this.container.first;
   }
 
+  public Node<E> back() {
+    if(size == 0) throw new NoSuchElementException();
+    return this.container.first.prev;
+  }
 
+  public boolean isEmpty(){
+    if (size == 0) return true;
+    else return false;
+  }
+
+  public int size(){ return this.size;}
+
+  public void clear() {
+    this.container.deleteList();
+    this.size = 0;
+  }
+
+  void push_back(E value){
+    Node<E> new_node = new Node(value);
+    this.container.InsertEnd(new_node);
+    ++this.size;
+  }
+
+  // T(N) for both pop_back and pop_front isn't particularly efficient
+  // but it's fine for now.
+  void pop_back() {
+    this.container.remove(this.container.first.prev);
+    --this.size;
+  }
+
+  void push_front(E value){
+    this.container.push(value);
+    ++this.size;
+  }
+
+  void pop_front() {
+    this.container.remove(this.container.first);
+    --this.size;
+  }
+
+  public static void main(String[] args) {
+//    Dequeue<Integer> deck = new Dequeue<>();
+//    deck.isEmpty();
+  }
 }
