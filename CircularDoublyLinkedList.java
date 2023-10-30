@@ -12,7 +12,8 @@ class CircularDoublyLinkedList<E>{
     first = null;
   }
 
-  void push(E new_data){
+  public void push(E new_data){
+    ++size;
     Node<E> new_node = new Node(new_data);
     if(first==null){
       new_node.next = new_node.prev = new_node;
@@ -24,11 +25,10 @@ class CircularDoublyLinkedList<E>{
     new_node.prev = last;
     last.next = first.prev = new_node;
     first = new_node;
-    ++size;
   }
 
   // T(N) S(1)
-  void remove(Node<E> e){
+  public void remove(Node<E> e){
     // list is empty
     if(first == null) throw new NoSuchElementException();
 
@@ -65,7 +65,7 @@ class CircularDoublyLinkedList<E>{
     --size;
     return;
   }
-  void InsertAfter(Node<E> prev_node, E new_data) {
+  public void InsertAfter(Node<E> prev_node, E new_data) {
     if(prev_node == null) return;
 
     Node<E> new_node = new Node(new_data);
@@ -76,7 +76,8 @@ class CircularDoublyLinkedList<E>{
     ++size;
   }
 
-  Node<E> insertEnd(Node<E> new_node){
+  public Node<E> insertEnd(Node<E> new_node){
+    ++size;
     if(first == null) {
       first.next = first.prev = new_node;
       first = new_node;

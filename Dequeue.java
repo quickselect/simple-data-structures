@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class Dequeue<E> implements DequeueInterface<E> {
-  int size = null;
+  int size = 0;
   CircularDoublyLinkedList<E> container = null;
 
-  Dequeue<E>(){
+  Dequeue(){
     this.size = 0;
     this.container = new CircularDoublyLinkedList<>();
   }
@@ -35,31 +35,54 @@ public class Dequeue<E> implements DequeueInterface<E> {
     this.size = 0;
   }
 
-  void push_back(E value){
+  public void push_back(E value){
     Node<E> new_node = new Node(value);
-    this.container.InsertEnd(new_node);
+    this.container.insertEnd(new_node);
     ++this.size;
   }
 
   // T(N) for both pop_back and pop_front isn't particularly efficient
   // but it's fine for now.
-  void pop_back() {
+  public void pop_back() {
     this.container.remove(this.container.first.prev);
     --this.size;
   }
 
-  void push_front(E value){
+  public void push_front(E value){
     this.container.push(value);
     ++this.size;
   }
 
-  void pop_front() {
+  public void pop_front() {
     this.container.remove(this.container.first);
     --this.size;
   }
 
+  public String toString() {
+    return this.container.toString();
+  }
+
   public static void main(String[] args) {
-//    Dequeue<Integer> deck = new Dequeue<>();
-//    deck.isEmpty();
+    Dequeue<Integer> deck = new Dequeue<>();
+    deck.isEmpty();
+    deck.push_front(1);
+    deck.push_front(2);
+    deck.push_front(3);
+    System.out.println(deck.toString());
+
+    System.out.println(deck.front().data);
+    deck.pop_front();
+    System.out.println(deck.toString());
+
+    System.out.println(deck.back().data);
+    deck.pop_back();
+    System.out.println(deck.toString());
+
+    System.out.println(deck.front().data);
+
+    deck.push_back(7);
+    deck.push_back(8);
+    deck.push_back(9);
+    System.out.println(deck.toString());
   }
 }

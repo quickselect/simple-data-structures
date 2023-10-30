@@ -1,3 +1,4 @@
+import Node.Node;
 
 public interface DequeueInterface<E> {
   // ELEMENT ACCESS
@@ -19,14 +20,14 @@ public interface DequeueInterface<E> {
   public void clear();
 
   // adds an element to the end.
-  void push_back(E value);
+  public void push_back(E value);
 
   // removes the last element.
-  void pop_back();
+  public void pop_back();
 
   // inserts an element to the beginning.
-  void push_front(E value);
+  public void push_front(E value);
 
   // removes the first element.
-  void pop_front();
+  public void pop_front();
 }
