@@ -26,7 +26,7 @@ class DoublyLinkedList<E> {
   // T(1) S(1)
   Node<E> InsertAfter(Node<E> prev_node, E new_data){
     if(prev_node == null) {
-	    throw new NodeNotFoundException();
+	    throw new NodeNotFoundException("something went wrong");
     }
 
     Node<E> new_node = new Node(new_data);
@@ -42,7 +42,7 @@ class DoublyLinkedList<E> {
   // T(1) S(1)
   Node<E> InsertBefore(Node<E> next_node, E new_data){
     if(next_node == null) {
-	    throw new NodeNotFoundException();
+	    throw new NodeNotFoundException("something went wrong");
     }
 
     Node<E> new_node = new Node(new_data);
@@ -131,8 +131,8 @@ class DoublyLinkedList<E> {
 
 }
 
-public class NodeNotFoundException extends RuntimeException {
+class NodeNotFoundException extends RuntimeException {
   public NodeNotFoundException(String message) {
-    super(mesage);
+    super(message);
   }
 }

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 import java.lang.IndexOutOfBoundsException;
 
@@ -6,16 +7,18 @@ public class Vector<E> {
   int currSize = 0;
   int lastElemIndex = 0;
 
-  Vector<E>(int size){
-    this.container = new E[size];
+  Vector(int INITIAL_ARRAY_LENGTH){
+    //this.container = new Object[size];
+    E[] arr = (E[]) new Object[INITIAL_ARRAY_LENGTH];
+    this.container = arr;
   }
 
   private void checkBounds(int pos){
-    if(pos >= currSize || pos < 0) throw new out_of_range();
+    if(pos >= currSize || pos < 0) throw new out_of_range(Integer.toString(pos));
   }
 
   private boolean isContainerCapacityEnough(){
-    if(this.container.length() >= this.currSize+1) // currSize plus one because
+    if(this.container.length >= this.currSize+1) // currSize plus one because
       return true;                                 // we will add *one* more element.
     else
       return false;
@@ -23,7 +26,7 @@ public class Vector<E> {
 
   E at(int pos) {
     checkBounds(pos);
-    else return container[pos];
+    return container[pos];
   }
 
   E front(){
@@ -50,7 +53,7 @@ public class Vector<E> {
   }
 
   int capacity() {
-    return this.container.length();
+    return this.container.length;
   }
 
   void clear(){
@@ -74,7 +77,7 @@ public class Vector<E> {
     // if it is not the case that current container size is enough.
     if(!isContainerCapacityEnough()) {
       // currSize plus one because we are adding one more element.
-      E[] newContainer = new E[currSize + 1];
+      E[] newContainer = (E[]) new Object[currSize+1];
 
       // before pos
       for(int i=0;i<=pos;++i){
