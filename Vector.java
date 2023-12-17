@@ -114,10 +114,13 @@ public class Vector<E> {
       this.pop_back();
       return;
     } else {
-      while (pos + 1 != currSize + 1) {
-        this.container[pos] = this.container[pos + 1];
+      int i = pos;
+      while (i != currSize) {
+        this.container[i] = this.container[i + 1];
+        ++i;
       }
-      this.pop_back(); // remove the duplicated element.
+      // ????????????????
+      // this.pop_back(); // remove the duplicated element.
       return;
     }
   }
